@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .login-button {
   display: flex;
   justify-content: flex-end;
