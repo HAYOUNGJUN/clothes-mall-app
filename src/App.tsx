@@ -2,8 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Root from './pages/Root';
 import Products from './pages/Products';
-import Product from './pages/Product';
 import Login from './pages/Login';
+import PrivateRoute from './routes/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Products />,
       },
-      { path: '/product/:id', element: <Product /> },
+      { path: '/product/:id', element: <PrivateRoute /> },
       { path: '/login', element: <Login /> },
     ],
   },

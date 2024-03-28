@@ -19,12 +19,18 @@ export default function Products() {
   }, []);
 
   async function getProducts() {
-    // const url = 'http://localhost:5000/products';
-    const url =
-      'https://my-json-server.typicode.com/HAYOUNGJUN/clothes-mall-app/products';
-    const response = await fetch(url);
-    const data = await response.json();
-    setProductList(data);
+    try {
+      // const url = 'http://localhost:5000/products';
+      const url =
+        'https://my-json-server.typicode.com/HAYOUNGJUN/clothes-mall-app/products';
+      const response = await fetch(url);
+      const data = await response.json();
+      setProductList(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
   }
 
   return (

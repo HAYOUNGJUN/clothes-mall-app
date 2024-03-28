@@ -41,3 +41,10 @@
   margin-left: 0.5rem;
   height: 30px;
 }
+
+.login input {
+  border: solid black 1px;
+  border-radius: 5px;
+  width: 20rem;
+  height: 2rem;
+}
