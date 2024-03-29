@@ -15,7 +15,7 @@ export type Product = {
 
 export default function Products() {
   const [productList, setProductList] = useState<Product[]>([]);
-  const [query, setQuery] = useSearchParams();
+  const [query] = useSearchParams();
 
   const getProducts = useCallback(async () => {
     try {
