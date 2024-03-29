@@ -81,5 +81,5 @@ export default function Product() {
     );
   }
 
-  return <main className='flex justify-center mt-12'>{content}</main>;
+  return <main className='flex justify-center my-12'>{content}</main>;
 }

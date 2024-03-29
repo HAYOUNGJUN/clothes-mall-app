@@ -1,7 +1,9 @@
+import { KeyboardEvent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { faSearch, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useAuthContext } from '../store/auth-context';
 
@@ -18,9 +20,38 @@ export default function Header() {
   ];
 
   const { isLogin, logout } = useAuthContext();
+  const navigate = useNavigate();
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  function handleSearch(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      const { value } = event.target as HTMLInputElement;
+
+      navigate(`/?q=${value}`);
+    }
+  }
 
   return (
     <header>
+      <FontAwesomeIcon
+        icon={faBars}
+        className='nav-menu-toggle'
+        onClick={() => setShowSidebar(true)}
+      />
+      <div className={`side-menu ${showSidebar && 'active'}`}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='side-menu-icon'
+          onClick={() => setShowSidebar(false)}
+        />
+        <ul>
+          {menuList.map((item, key) => (
+            <li key={key}>
+              <button>{item}</button>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div>
         <div className='login-button flex items-center'>
           <FontAwesomeIcon icon={faUser} />
@@ -56,7 +87,7 @@ export default function Header() {
         </nav>
         <div className='search-box'>
           <FontAwesomeIcon icon={faSearch} />
-          <input type='text' placeholder='제품검색' />
+          <input type='text' placeholder='제품검색' onKeyDown={handleSearch} />
         </div>
       </div>
     </header>

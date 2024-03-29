@@ -48,3 +48,72 @@
   width: 20rem;
   height: 2rem;
 }
+
+.nav-menu-toggle {
+  display: none;
+}
+
+.side-menu {
+  display: none;
+}
+
+@media screen and (max-width: 1008px) {
+  .nav-list {
+    display: none;
+  }
+  .nav-menu-toggle {
+    display: block;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 1rem;
+  }
+
+  .side-menu {
+    width: 40%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgb(160, 21, 62);
+    color: white;
+    padding: 1rem;
+    display: none;
+  }
+  .side-menu-icon {
+    font-size: 1.5rem;
+    position: absolute;
+    right: 1rem;
+  }
+  .side-menu ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .side-menu li {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+  }
+  .side-menu li:active,
+  .side-menu li:hover {
+    background-color: rgb(255, 32, 78);
+    border-radius: 0.5rem;
+  }
+  .sie-menu button {
+    width: 100%;
+  }
+
+  .side-menu.active {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    gap: 4rem;
+  }
+}

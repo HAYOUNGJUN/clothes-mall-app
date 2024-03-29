@@ -18,10 +18,12 @@ export default function ProductCard({ item }: ProductCardProps) {
       onClick={() => showProductDetailPage(item.id)}
     >
       <img src={item.img} alt={item.title} />
-      <div>{item.choice && 'Conscious choice'}</div>
-      <div>{item.title}</div>
+      <div className='text-sm font-serif'>
+        {item.choice && 'Conscious choice'}
+      </div>
+      <div className='font-bold text-lg'>{item.title}</div>
       <div>₩{item.price}</div>
-      <div>{item.new && '신제품'}</div>
+      <div className='text-sm italic'>{item.new && '신제품'}</div>
     </div>
   );
 }
