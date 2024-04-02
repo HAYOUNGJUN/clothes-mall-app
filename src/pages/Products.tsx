@@ -1,40 +1,21 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { fetchProductData } from '../store/productAction';
 
 import ProductCard from '../components/ProductCard';
 
-export type Product = {
-  id: number;
-  img: string;
-  title: string;
-  price: number;
-  choice: boolean;
-  new: boolean;
-  size: string[];
-};
-
 export default function Products() {
-  const [productList, setProductList] = useState<Product[]>([]);
+  const productList = useAppSelector((state) => state.product.items);
   const [query] = useSearchParams();
+  const dispatch = useAppDispatch();
 
-  const getProducts = useCallback(async () => {
-    try {
-      const searchQuery = query.get('q') || '';
-      // const url = `http://localhost:5000/products?q=${searchQuery}`;
-      const url = `https://my-json-server.typicode.com/HAYOUNGJUN/clothes-mall-app/products?q=${searchQuery}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      setProductList(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-    }
-  }, [query]);
+  // const url = `http://localhost:5000/products?q=${searchQuery}`;
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    const searchQuery = query.get('q') || '';
+    dispatch(fetchProductData(searchQuery));
+  }, [dispatch, query]);
 
   return (
     <div className='card-container container mx-auto px-4 grid grid-cols-4 gap-4 py-8'>

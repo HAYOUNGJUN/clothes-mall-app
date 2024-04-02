@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import Product from '../pages/Product';
-import { useAuthContext } from '../store/auth-context';
+import { useAppSelector } from '../store/hooks';
 
 export default function PrivateRoute() {
-  const { isLogin } = useAuthContext();
+  const isLogin = useAppSelector((state) => state.auth.isAuth);
 
   if (isLogin) {
     return <Product />;

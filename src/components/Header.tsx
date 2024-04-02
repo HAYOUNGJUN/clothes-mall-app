@@ -4,8 +4,8 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faSearch, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import { Link, useNavigate } from 'react-router-dom';
-
-import { useAuthContext } from '../store/auth-context';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { logout } from '../store/authSlice';
 
 export default function Header() {
   const menuList = [
@@ -19,7 +19,9 @@ export default function Header() {
     '지속가능성',
   ];
 
-  const { isLogin, logout } = useAuthContext();
+  const isLogin = useAppSelector((state) => state.auth.isAuth);
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -61,7 +63,10 @@ export default function Header() {
               로그인
             </Link>
           ) : (
-            <div className='ml-2 cursor-pointer' onClick={logout}>
+            <div
+              className='ml-2 cursor-pointer'
+              onClick={() => dispatch(logout())}
+            >
               로그아웃
             </div>
           )}

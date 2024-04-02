@@ -1,44 +1,48 @@
-import { type ReactNode, useCallback, useEffect, useState } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { type Product } from './Products';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { getProductDetail } from '../store/productSlice';
 
 export default function Product() {
-  const [productData, setProductData] = useState<Product>();
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState('');
-
+  const productList = useAppSelector((state) => state.product.items);
+  const productData = productList[0];
+  const dispatch = useAppDispatch();
   const { id } = useParams();
 
-  const getProductDetail = useCallback(async () => {
-    try {
-      setIsFetching(true);
-      // const url = `http://localhost:5000/products/${id}`;
-      const url = `https://my-json-server.typicode.com/HAYOUNGJUN/clothes-mall-app/products/${id}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      setProductData(data);
-      setIsFetching(false);
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      }
-    }
-  }, [id]);
+  // const [productData, setProductData] = useState<ProductItem>();
+  // const [isFetching, setIsFetching] = useState(false);
+  // const [error, setError] = useState('');
+
+  // const getProductDetail = useCallback(async () => {
+  //   try {
+  //     setIsFetching(true);
+  //     // const url = `http://localhost:5000/products/${id}`;
+  //     const url = `https://my-json-server.typicode.com/HAYOUNGJUN/clothes-mall-app/products/${id}`;
+  //     const response = await fetch(url);
+  //     const data = await response.json();
+  //     setProductData(data);
+  //     setIsFetching(false);
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       setError(error.message);
+  //     }
+  //   }
+  // }, [id]);
 
   useEffect(() => {
-    getProductDetail();
-  }, [getProductDetail]);
+    dispatch(getProductDetail(+id!));
+  }, [dispatch, id]);
 
   let content: ReactNode;
 
-  if (isFetching) {
-    content = <p>Loading data...</p>;
-  }
+  // if (isFetching) {
+  //   content = <p>Loading data...</p>;
+  // }
 
-  if (error) {
-    content = <p>{error}</p>;
-  }
+  // if (error) {
+  //   content = <p>{error}</p>;
+  // }
 
   if (productData) {
     content = (

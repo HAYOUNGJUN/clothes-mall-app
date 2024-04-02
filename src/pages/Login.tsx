@@ -1,16 +1,15 @@
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { useAuthContext } from '../store/auth-context';
+import { useAppDispatch } from '../store/hooks';
+import { login } from '../store/authSlice';
 
 export default function Login() {
-  const authCtx = useAuthContext();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    authCtx.login();
+    dispatch(login());
     navigate('/');
   }
 
